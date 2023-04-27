@@ -1,0 +1,726 @@
+// Define the input parameters
+extern int MA50_Period = 50;
+extern int MA200_Period = 200;
+extern int Support_Level = 100;
+extern double High_Difference = 0.0005; // Use this to adjust for potential spread differences between bid/ask prices
+
+// Define the trade entry conditions
+bool isBullishCandlestickPattern() {
+    // Check for a bullish candlestick pattern
+    // Code to check for the specific pattern you want goes here
+}
+
+bool isMovingAverageCrossover() {
+    // Check for a moving average crossover
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 > MA200);
+}
+
+bool isPriceBreakout() {
+    // Check for a price breakout
+    double PrevHigh = High[1];
+    double CurrentHigh = High[0];
+    return (CurrentHigh > PrevHigh + High_Difference);
+}
+
+// Define the trade execution function
+void ExecuteTrade() {
+    // Code to execute the trade goes here
+}
+
+// Define the main function
+int start() {
+    // Check if the entry conditions are met
+    if (isBullishCandlestickPattern() && isMovingAverageCrossover() && isPriceBreakout()) {
+        ExecuteTrade();
+    }
+    
+    // Exit the function
+    return(0);
+}
+
+
+
+
+
+
+
+
+// Define the input parameters
+extern int MA50_Period = 50;
+extern int MA200_Period = 200;
+extern int Support_Level = 100;
+extern double High_Difference = 0.0005; // Use this to adjust for potential spread differences between bid/ask prices
+
+// Define the trade entry conditions
+bool isUptrend() {
+    // Check for an uptrend
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 > MA200);
+}
+
+bool isDowntrend() {
+    // Check for a downtrend
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 < MA200);
+}
+
+bool isBullishCandlestickPattern() {
+    // Check for a bullish candlestick pattern
+    // Code to check for the specific pattern you want goes here
+}
+
+bool isBearishCandlestickPattern() {
+    // Check for a bearish candlestick pattern
+    // Code to check for the specific pattern you want goes here
+}
+
+bool isMovingAverageCrossover() {
+    // Check for a moving average crossover
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 > MA200);
+}
+
+bool isPriceBreakout() {
+    // Check for a price breakout
+    double PrevHigh = High[1];
+    double CurrentHigh = High[0];
+    return (CurrentHigh > PrevHigh + High_Difference);
+}
+
+// Define the trade execution function
+void ExecuteTrade() {
+    // Code to execute the trade goes here
+}
+
+// Define the main function
+int start() {
+    // Check if the entry conditions are met
+    if (isMovingAverageCrossover() && isPriceBreakout()) {
+        if (isUptrend() && isBullishCandlestickPattern()) {
+            ExecuteTrade();
+        } else if (isDowntrend() && isBearishCandlestickPattern()) {
+            ExecuteTrade();
+        }
+    }
+    
+    // Exit the function
+    return(0);
+}
+
+
+
+
+
+
+
+
+
+// Define the input parameters
+extern int MA50_Period = 50;
+extern int MA200_Period = 200;
+extern int Support_Level = 100;
+extern double High_Difference = 0.0005; // Use this to adjust for potential spread differences between bid/ask prices
+extern int BB_Period = 20;
+extern double BB_Deviation = 2.0;
+
+// Define the trade entry conditions
+bool isUptrend() {
+    // Check for an uptrend
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 > MA200);
+}
+
+bool isDowntrend() {
+    // Check for a downtrend
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 < MA200);
+}
+
+bool isBullishCandlestickPattern() {
+    // Check for a bullish candlestick pattern
+    // Code to check for the specific pattern you want goes here
+}
+
+bool isBearishCandlestickPattern() {
+    // Check for a bearish candlestick pattern
+    // Code to check for the specific pattern you want goes here
+}
+
+bool isMovingAverageCrossover() {
+    // Check for a moving average crossover
+    double MA50 = iMA(NULL, 0, MA50_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double MA200 = iMA(NULL, 0, MA200_Period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    return (MA50 > MA200);
+}
+
+bool isPriceBreakout() {
+    // Check for a price breakout
+    double PrevHigh = High[1];
+    double PrevLow = Low[1];
+    double CurrentHigh = High[0];
+    double CurrentLow = Low[0];
+    double Pivot = iCustom(NULL, 0, "Pivot", 0, 0);
+    double BBUpper = iBands(NULL, 0, BB_Period, BB_Deviation, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double BBLower = iBands(NULL, 0, BB_Period, BB_Deviation, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    return ((CurrentHigh > Pivot && isUptrend()) || (CurrentLow < Pivot && isDowntrend())
+        || (CurrentHigh > BBUpper && isUptrend()) || (CurrentLow < BBLower && isDowntrend())
+        || (CurrentHigh > PrevHigh && isUptrend()) || (CurrentLow < PrevLow && isDowntrend()));
+}
+
+// Define the trade execution function
+void ExecuteTrade() {
+    // Code to execute the trade goes here
+}
+
+// Define the main function
+int start() {
+    // Check if the entry conditions are met
+    if (isMovingAverageCrossover() && isPriceBreakout()) {
+        if (isUptrend() && isBullishCandlestickPattern()) {
+            ExecuteTrade();
+        } else if (isDowntrend() && isBearishCandlestickPattern()) {
+            ExecuteTrade();
+        }
+   
+
+
+
+
+
+
+void OnTick()
+{
+    double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+    double risk = equity * 0.02; // maximum risk per trade (2% of equity)
+
+    if (trend == uptrend)
+    {
+        // look for bullish candlestick patterns
+        if (IsBullishCandlestick() && IsKeyLevelOfSupport() && PriceBreaksPreviousHigh())
+        {
+            double entryPrice = GetBreakoutPrice();
+            double stopLoss = entryPrice - GetAverageTrueRange() * 2;
+            double lotSize = NormalizeDouble(risk / stopLoss / 100000, 2);
+
+            // enter long trade
+            OrderSend(Symbol(), OP_BUY, lotSize, entryPrice, slippage, stopLoss, 0, "");
+        }
+    }
+    else if (trend == downtrend)
+    {
+        // look for bearish candlestick patterns
+        if (IsBearishCandlestick() && IsKeyLevelOfResistance() && PriceBreaksPreviousLow())
+        {
+            double entryPrice = GetBreakoutPrice();
+            double stopLoss = entryPrice + GetAverageTrueRange() * 2;
+            double lotSize = NormalizeDouble(risk / stopLoss / 100000, 2);
+
+            // enter short trade
+            OrderSend(Symbol(), OP_SELL, lotSize, entryPrice, slippage, stopLoss, 0, "");
+        }
+    }
+}
+
+bool PriceBreaksPreviousHigh()
+{
+    double prevHigh = iHigh(NULL, PERIOD_D1, 1);
+    double currentHigh = iHigh(NULL, PERIOD_D1, 0);
+    return currentHigh > prevHigh;
+}
+
+bool PriceBreaksPreviousLow()
+{
+    double prevLow = iLow(NULL, PERIOD_D1, 1);
+    double currentLow = iLow(NULL, PERIOD_D1, 0);
+    return currentLow < prevLow;
+}
+
+double GetBreakoutPrice()
+{
+    // use pivot points, Bollinger Bands, or previous day's high/low as breakout levels
+    double pivot = iCustom(NULL, PERIOD_D1, "Pivot", 0, 0);
+    double bollingerTop = iBands(NULL, PERIOD_D1, 20, 2, 0, PRICE_CLOSE, MODE_UPPER, 1);
+    double bollingerBottom = iBands(NULL, PERIOD_D1, 20, 2, 0, PRICE_CLOSE, MODE_LOWER, 1);
+    double prevHigh = iHigh(NULL, PERIOD_D1, 1);
+    double prevLow = iLow(NULL, PERIOD_D1, 1);
+
+    if (trend == uptrend)
+    {
+        if (Ask > pivot) return Ask;
+        else if (Ask > bollingerTop) return Ask;
+        else if (Ask > prevHigh) return Ask;
+    }
+    else if (trend == downtrend)
+    {
+        if (Bid < pivot) return Bid;
+        else if (Bid < bollingerBottom) return Bid;
+        else if (Bid < prevLow) return Bid;
+    }
+
+    // if no breakout level is reached, return 0 (no trade)
+    return 0;
+}
+
+double GetAverageTrueRange()
+{
+    int atrPeriod = 14;
+    double atr = iATR(NULL, PERIOD_D1, atrPeriod, 0);
+    return atr;
+}
+
+bool IsBullishCandlestick()
+{
+    // look for bullish candlestick
+
+
+
+
+
+
+
+
+double lotSize = AccountEquity()*0.02/10000;
+int maxPairs = 30;
+int maxTradesPerPair = 4;
+
+void OnTick() {
+    for (int i = OrdersTotal() - 1; i >= 0; i--) {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES) == true) {
+            if (OrderSymbol() == Symbol()) {
+                if (OrderType() == OP_BUY) {
+                    if (Ask < OrderOpenPrice() - 100 * Point) {
+                        CloseOrder();
+                    }
+                } else if (OrderType() == OP_SELL) {
+                    if (Bid > OrderOpenPrice() + 100 * Point) {
+                        CloseOrder();
+                    }
+                }
+            }
+        }
+    }
+    
+    int totalPositions = 0;
+    for (int i = 0; i < maxPairs; i++) {
+        if (OrdersTotal() > 0) {
+            for (int j = 0; j < OrdersTotal(); j++) {
+                if (OrderSelect(j, SELECT_BY_POS, MODE_TRADES) == true) {
+                    if (OrderSymbol() == Symbol() && OrderMagicNumber() == i) {
+                        totalPositions++;
+                    }
+                }
+            }
+        }
+        
+        if (totalPositions >= maxTradesPerPair) {
+            continue;
+        }
+        
+        if (/* Add entry conditions here */) {
+            double entryPrice = Ask;
+            double stopLoss = entryPrice - (3 * ATR());
+            double takeProfit = entryPrice + (3 * ATR());
+            int magicNumber = i;
+            
+            if (/* Add breakout conditions here */) {
+                if (totalPositions < maxTradesPerPair) {
+                    OpenPosition(magicNumber, OP_BUY, lotSize, entryPrice, stopLoss, takeProfit);
+                }
+            } else if (/* Add reversal conditions here */) {
+                if (totalPositions < maxTradesPerPair) {
+                    OpenPosition(magicNumber, OP_SELL, lotSize, entryPrice, stopLoss, takeProfit);
+                }
+            }
+        }
+    }
+}
+
+void OpenPosition(int magicNumber, int orderType, double lotSize, double entryPrice, double stopLoss, double takeProfit) {
+    if (orderType == OP_BUY) {
+        OrderSend(Symbol(), OP_BUY, lotSize, entryPrice, 0, stopLoss, takeProfit, "Buy Order", magicNumber, 0, Green);
+    } else if (orderType == OP_SELL) {
+        OrderSend(Symbol(), OP_SELL, lotSize, entryPrice, 0, stopLoss, takeProfit, "Sell Order", magicNumber, 0, Red);
+    }
+}
+
+void CloseOrder() {
+    int ticket = OrderTicket();
+    double closePrice = OrderClosePrice();
+    OrderClose(ticket, lotSize, closePrice, 0, Black);
+}
+
+
+
+
+
+
+
+// input parameters
+extern double riskPercent = 2.0;    // risk percentage per trade
+extern int maxTradesPerPair = 4;   // maximum number of trades per currency pair
+extern int maxTotalTrades = 30;    // maximum total number of open trades
+
+// technical indicators
+int ma50, ma200;    // moving averages
+double bollingerUpper, bollingerLower;    // Bollinger Bands
+double pivot, previousHigh, previousLow;    // breakout levels
+
+// order management
+int totalTrades = 0;    // total number of open trades
+int tradesPerPair[50];    // number of trades per currency pair
+int magicNumber = 123456;    // unique identifier for the bot's trades
+
+// main function
+void OnTick()
+{
+    // check if the maximum number of trades has been reached
+    if (totalTrades >= maxTotalTrades) {
+        return;
+    }
+
+    // loop through different currency pairs and timeframes
+    string symbols[3] = {"EURUSD", "GBPUSD", "USDJPY"};
+    int timeframes[3] = {PERIOD_M15, PERIOD_H1, PERIOD_D1};
+    for (int s = 0; s < 3; s++) {
+        for (int t = 0; t < 3; t++) {
+            // select the currency pair and timeframe
+            string symbol = symbols[s];
+            int timeframe = timeframes[t];
+            SetSymbolPeriod(symbol, timeframe);
+
+            // check if the maximum number of trades per pair has been reached
+            if (tradesPerPair[Symbol()] >= maxTradesPerPair) {
+                continue;
+            }
+
+            // calculate technical indicators
+            ma50 = iMA(Symbol(), timeframe, 50, 0, MODE_SMA, PRICE_CLOSE);
+            ma200 = iMA(Symbol(), timeframe, 200, 0, MODE_SMA, PRICE_CLOSE);
+            double bollingerDeviation = iStdDev(Symbol(), timeframe, 20, 0, PRICE_CLOSE, MODE_SMA, 0);
+            bollingerUpper = iMA(Symbol(), timeframe, 20, 0, MODE_SMA, PRICE_CLOSE) + 2 * bollingerDeviation;
+            bollingerLower = iMA(Symbol(), timeframe, 20, 0, MODE_SMA, PRICE_CLOSE) - 2 * bollingerDeviation;
+            pivot = (iHigh(Symbol(), timeframe, MODE_H1, 1) + iLow(Symbol(), timeframe, MODE_H1, 1) + iClose(Symbol(), timeframe, MODE_H1, 1)) / 3;
+            previousHigh = iHigh(Symbol(), timeframe, 1);
+            previousLow = iLow(Symbol(), timeframe, 1);
+
+            // check if the price is in an uptrend
+            bool uptrend = ma50 > ma200;
+
+            // check for bullish candlestick patterns in uptrend
+            bool bullishPattern = false;
+            if (uptrend) {
+                bullishPattern = IsBullishCandlestickPattern();
+            }
+
+            // check for bearish candlestick patterns in downtrend
+            bool bearishPattern = false;
+            if (!uptrend) {
+                bearishPattern = IsBearishCandlestickPattern();
+            }
+
+            // check for breakout levels
+            bool breakout = IsBreakout();
+
+            // enter trades based on conditions
+            if (uptrend && bullishPattern && breakout) {
+                Buy();
+            } else if (!uptrend
+
+
+
+
+
+
+
+
+//Inputs
+extern int ma_fast_period = 50; //fast moving average period
+extern int ma_slow_period = 200; //slow moving average period
+extern int rsi_period = 14; //RSI period
+extern int macd_fast_period = 12; //MACD fast period
+extern int macd_slow_period = 26; //MACD slow period
+extern int macd_signal_period = 9; //MACD signal period
+extern int stochastic_k_period = 14; //Stochastic Oscillator K period
+extern int stochastic_d_period = 3; //Stochastic Oscillator D period
+extern double equity_percent_per_trade = 2.0; //percent of equity to risk per trade
+extern double risk_reward_ratio = 2.0; //fixed risk-reward ratio
+extern int max_trades_per_pair = 4; //maximum number of trades per currency pair
+extern int max_open_trades = 30; //maximum number of open trades
+
+//Variables
+int buy_count = 0;
+int sell_count = 0;
+
+//Functions
+double calculate_lot_size(double stop_loss)
+{
+    double lot_size = (equity_percent_per_trade * AccountEquity()) / (stop_loss * 100);
+    return NormalizeDouble(lot_size, 2);
+}
+
+void enter_trade(int type)
+{
+    if (type == OP_BUY)
+    {
+        if (buy_count >= max_trades_per_pair)
+            return;
+        
+        buy_count++;
+    }
+    else
+    {
+        if (sell_count >= max_trades_per_pair)
+            return;
+        
+        sell_count++;
+    }
+    
+    double lot_size = calculate_lot_size(StopLossDistance());
+    double stop_loss = Ask - StopLossDistance() * Point;
+    double take_profit = Ask + risk_reward_ratio * StopLossDistance() * Point;
+    
+    OrderSend(Symbol(), type, lot_size, Ask, Slippage(), stop_loss, take_profit, "Trade", MagicNumber(), 0, Green);
+}
+
+//Start
+void start()
+{
+    //Get current bar values
+    double ma_fast = iMA(NULL, 0, ma_fast_period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double ma_slow = iMA(NULL, 0, ma_slow_period, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double rsi = iRSI(NULL, 0, rsi_period, PRICE_CLOSE, 0);
+    double macd_main = iMACD(NULL, 0, macd_fast_period, macd_slow_period, macd_signal_period, PRICE_CLOSE, MODE_MAIN, 0);
+    double macd_signal = iMACD(NULL, 0, macd_fast_period, macd_slow_period, macd_signal_period, PRICE_CLOSE, MODE_SIGNAL, 0);
+    double stochastic_k = iStochastic(NULL, 0, stochastic_k_period, 3, 3, MODE_SMA, 0, MODE_MAIN, 0);
+    double stochastic_d = iStochastic(NULL, 0, stochastic_k_period, 3, 3, MODE_SMA, 0, MODE_SIGNAL, 0);
+    
+    //Check for overbought/oversold conditions and divergences
+    bool is_overbought = rsi > 70 || stochastic_k > 80;
+    bool is_oversold = rsi < 30 || stochastic_k < 20;
+    bool is_bearish_divergence = macd_main
+
+
+
+
+
+
+
+
+// Define input parameters
+extern int max_trades = 4;          // Maximum trades per currency pair
+extern int max_trades_total = 30;   // Maximum total number of trades
+extern double risk_percent = 2.0;   // Risk percent per trade
+
+// Define trade entry conditions
+bool is_entry_conditions_met() {
+    bool is_entry = false;
+    int tf, i, counted_bars = IndicatorCounted(), shift = Bars - counted_bars - 1;
+
+    // Loop through different timeframes and pairs
+    for (tf = 0; tf < 3; tf++) {
+        for (i = 0; i < 3; i++) {
+            if (i == 0) {
+                Symbol = "EURUSD";
+            } else if (i == 1) {
+                Symbol = "GBPUSD";
+            } else if (i == 2) {
+                Symbol = "USDJPY";
+            }
+
+            // Switch timeframe
+            if (tf == 0) {
+                Period = PERIOD_H4;
+            } else if (tf == 1) {
+                Period = PERIOD_D1;
+            } else if (tf == 2) {
+                Period = PERIOD_W1;
+            }
+
+            // Get trend
+            bool is_uptrend = is_up_trend();
+            bool is_downtrend = is_down_trend();
+
+            // Get price action signal
+            bool is_bullish_candlestick_pattern = is_bullish_candlestick();
+            bool is_bearish_candlestick_pattern = is_bearish_candlestick();
+            bool is_breakout = is_breakout();
+
+            // Get oscillator signals
+            bool is_overbought = is_asset_overbought();
+            bool is_oversold = is_asset_oversold();
+            bool is_divergence = is_oscillator_divergence();
+
+            // Set risk-reward ratio based on oscillator signals
+            double rr_ratio = 2.0;
+            if ((is_overbought || is_oversold) && is_divergence) {
+                rr_ratio = 0.5;
+            } else if (is_overbought || is_oversold) {
+                rr_ratio = 1.0;
+            } else {
+                rr_ratio = 5.0;
+            }
+
+            // Check if entry conditions are met
+            if ((is_uptrend && is_bullish_candlestick_pattern && is_breakout && !is_trade_open(i)) ||
+                (is_downtrend && is_bearish_candlestick_pattern && is_breakout && !is_trade_open(i))) {
+                double stop_loss = 0, take_profit = 0;
+                double risk = AccountEquity() * risk_percent / 100.0;
+
+                // Calculate stop loss and take profit
+                if (is_uptrend) {
+                    stop_loss = Bid - (rr_ratio * (Bid - get_low(i)));
+                    take_profit = Bid + (rr_ratio * (get_high(i) - Bid));
+                } else {
+                    stop_loss = Ask + (rr_ratio * (get_high(i) - Ask));
+                    take_profit = Ask - (rr_ratio * (get_low(i) - Ask));
+                }
+
+                // Check if enough room for new trade
+                if (get_trade_count(i) < max_trades && get_total_trade_count() < max_trades_total) {
+                    // Open new trade
+                    int ticket = 0;
+                    if (is_uptrend) {
+                        ticket = OrderSend(Symbol(), OP_BUY, 0.1, Ask, 
+
+
+
+
+
+
+
+
+
+// input parameters
+input double RiskPercent = 2.0; // risk percentage per trade
+input int MaxTradesPerPair = 4; // maximum number of trades per currency pair
+input int MaxTotalTrades = 30; // maximum total number of trades
+input double LotSize = 0.01; // lot size per trade
+input double StopLossMultiplier = 2.0; // stop loss multiplier for normal trades
+input double StopLossMultiplierExtended = 10.0; // stop loss multiplier for trades not in overbought/oversold zone
+input int RsiPeriod = 14; // RSI period
+input int RsiOverbought = 70; // RSI overbought level
+input int RsiOversold = 30; // RSI oversold level
+input int MacdFast = 12; // MACD fast period
+input int MacdSlow = 26; // MACD slow period
+input int MacdSignal = 9; // MACD signal period
+input double StochK = 14; // Stochastic Oscillator K period
+input double StochD = 3; // Stochastic Oscillator D period
+input double StochOverbought = 80; // Stochastic Oscillator overbought level
+input double StochOversold = 20; // Stochastic Oscillator oversold level
+input double BreakEvenRatio = 1.0; // risk-reward ratio at which to set stop loss to break even
+input double TrailingStop = 20; // trailing stop distance in pips
+
+// global variables
+bool trendUp;
+bool trendDown;
+int totalTrades = 0;
+datetime lastTradeTime;
+bool useTrailingStop;
+
+// input parameters for loop
+input string pairs[] = {"EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF", "NZDUSD", "USDCAD", "EURJPY", "EURGBP", "EURCHF"};
+input ENUM_TIMEFRAMES timeframes[] = {PERIOD_M1, PERIOD_M5, PERIOD_M15, PERIOD_M30, PERIOD_H1, PERIOD_H4, PERIOD_D1, PERIOD_W1, PERIOD_MN1};
+
+void OnStart()
+{
+    // enable dynamic lot size
+    bool useDynamicLotSize = (LotSize == 0.0);
+    if (useDynamicLotSize) {
+        LotSize = AccountBalance() * RiskPercent / 100.0 / 1000.0;
+    }
+
+    // initialize global variables
+    trendUp = false;
+    trendDown = false;
+    totalTrades = 0;
+    lastTradeTime = 0;
+    useTrailingStop = false;
+
+    // loop through currency pairs
+    for (int i = 0; i < ArraySize(pairs); i++) {
+        string pair = pairs[i];
+        // loop through timeframes
+        for (int j = 0; j < ArraySize(timeframes); j++) {
+            ENUM_TIMEFRAMES timeframe = timeframes[j];
+            // set the chart
+            ChartSetSymbolPeriod(0, pair, timeframe);
+            // wait for the chart to load
+            while (!IsChartVisible(pair, timeframe)) {
+                Sleep(100);
+            }
+            // check if the chart is loaded
+            if (IsChartVisible(pair, timeframe)) {
+                // calculate indicators
+                double rsi = iRSI(pair, timeframe, RsiPeriod, PRICE_CLOSE, 0);
+                double macd = iMACD(pair, timeframe, Mac
+
+
+
+
+
+
+
+
+// Loop through the different timeframes and pairs
+for (int tf = 0; tf < ArraySize(TimeFrames); tf++) {
+    for (int cp = 0; cp < ArraySize(CurrencyPairs); cp++) {
+        string symbol = CurrencyPairs[cp];
+        for (int i = 0; i < SymbolsTotal(true); i++) {
+            if (StringFind(SymbolName(i), symbol) >= 0) {
+                if (Period() != TimeFrames[tf]) {
+                    continue;
+                }
+                // Check if the currency is valid
+                if (!IsValidCurrency(Symbol())) {
+                    continue;
+                }
+                // Check if the market is open
+                if (MarketIsClosed()) {
+                    continue;
+                }
+                // Check if there are already maximum number of trades
+                if (TotalTrades() >= MaxTrades) {
+                    continue;
+                }
+                // Check if the current price is too close to the recent high or low
+                double currentPrice = SymbolInfoDouble(_Symbol, SYMBOL_BID);
+                double recentHigh = High[Highest(NULL, 0, MODE_HIGH, LookbackBars, 0)];
+                double recentLow = Low[Lowest(NULL, 0, MODE_LOW, LookbackBars, 0)];
+                double priceRange = MathAbs(recentHigh - recentLow);
+                double priceRangePercentage = priceRange / currentPrice * 100.0;
+                if (priceRangePercentage < MinPriceRangePercentage) {
+                    continue;
+                }
+                // Check if we have a bullish/bearish trend, price action signal, and breakout level
+                if (IsBullishTrend() && IsBullishSignal() && IsBreakoutLevel()) {
+                    // Check if the asset is not overbought
+                    if (!IsOverbought()) {
+                        OpenTrade(true);
+                    }
+                    else {
+                        // If the asset is overbought, use 1:10 risk reward ratio
+                        OpenTrade(true, 1, 10);
+                    }
+                }
+                else if (IsBearishTrend() && IsBearishSignal() && IsBreakoutLevel()) {
+                    // Check if the asset is not oversold
+                    if (!IsOversold()) {
+                        OpenTrade(false);
+                    }
+                    else {
+                        // If the asset is oversold, use 1:10 risk reward ratio
+                        OpenTrade(false, 1, 10);
+                    }
+                }
+            }
+        }
+    }
+}
